@@ -1,0 +1,73 @@
+
+import * as THREE from 'https://unpkg.com/three@0.166.0/build/three.module.js';
+
+const canvas = document.querySelector('#bg');
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
+
+// Luz ambiental
+scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+// Estrellas
+const starsCount = 12000;
+const geometry = new THREE.BufferGeometry();
+const positions = new Float32Array(starsCount * 3);
+const colors = new Float32Array(starsCount * 3);
+const sizes = new Float32Array(starsCount);
+
+for (let i = 0; i < starsCount; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.random() * 30 + 20;
+    positions[i*3] = Math.cos(angle) * radius;
+    positions[i*3+1] = Math.sin(angle) * radius;
+    positions[i*3+2] = (Math.random()-0.5) * 120 - 30;
+
+    const brightness = Math.random() * 0.7 + 0.8;
+    const starType = Math.random();
+    if (starType < 0.4) { colors[i*3] = colors[i*3+1] = colors[i*3+2] = 1 * brightness; }
+    else if (starType < 0.65) { colors[i*3] = 1*brightness; colors[i*3+1] = 0.7*brightness; colors[i*3+2] = 0.3*brightness; }
+    else if (starType < 0.85) { colors[i*3] = 1*brightness; colors[i*3+1] = 0.4*brightness; colors[i*3+2] = 0.6*brightness; }
+    else { colors[i*3] = 0.6*brightness; colors[i*3+1] = 0.8*brightness; colors[i*3+2] = 1*brightness; }
+    sizes[i] = Math.random() * 0.3 + 0.1;
+}
+
+geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+const isMobile = window.innerWidth <= 768;
+const material = new THREE.PointsMaterial({
+    size: isMobile ? 0.20 : 0.25,
+    vertexColors: true,
+    blending: THREE.AdditiveBlending,
+    transparent: true,
+    sizeAttenuation: true
+});
+
+const stars = new THREE.Points(geometry, material);
+scene.add(stars);
+
+function animate() {
+    requestAnimationFrame(animate);
+    const starPositions = stars.geometry.attributes.position.array;
+    for (let i = 0; i < starsCount; i++) {
+        starPositions[i*3+2] += 0.2;
+        if (starPositions[i*3+2] > 15) starPositions[i*3+2] = -60 - Math.random()*30;
+    }
+    stars.geometry.attributes.position.needsUpdate = true;
+    stars.rotation.z += 0.0005;
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+});
+
+animate();

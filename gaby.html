@@ -1,0 +1,80 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cargando...</title>
+  <link rel="stylesheet" href="css/gaby.css" />
+  <style>
+    /* Estilos de la pantalla de carga */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .loading-screen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-heart {
+      font-size: 4rem;
+      color: #ff2d2d;
+      margin-bottom: 2rem;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    .loading-bar-container {
+      width: 300px;
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 45, 45, 0.3);
+    }
+
+    .loading-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #ff2d2d, #ff6666, #ff2d2d);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 45, 45, 0.6);
+    }
+
+    .loading-text {
+      color: #fff;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      text-shadow: 0 0 10px rgba(255, 45, 45, 0.5);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-heart">♥</div>
+    <div class="loading-bar-container">
+      <div class="loading-bar" id="loadingBar"></div>
+    </div>
+    <div class="loading-text">Cargando...</div>
+  </div>
+
+  <script src="js/gaby.js"></script>
+</body>
+</html>

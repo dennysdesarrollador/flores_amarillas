@@ -1,0 +1,191 @@
+
+
+/* Fondo canvas */
+canvas#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;  /* detrás del contenido */
+    display: block;
+}
+
+/* Estilos del mensaje */
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    background: #000; /* Fondo negro sólido */
+    margin: 0;
+    padding: 0;
+}
+
+.message {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  color: #fff;
+}
+
+/* Título con efecto brillante */
+.message h1 {
+  font-size: 2.8rem;
+  color: #ffd700;
+  text-shadow: 
+    0 0 8px #ffd700,
+    0 0 15px #ffa500,
+    0 0 25px #ffcc00;
+  animation: glow 2s infinite alternate;
+  margin-bottom: 30px;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 8px #ffd700, 0 0 15px #ffa500; }
+  to { text-shadow: 0 0 20px #ffcc00, 0 0 40px #ffa500, 0 0 60px #ff8800; }
+}
+
+/* Párrafo con estilo romántico */
+.message p {
+  max-width: 700px;
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: #fff;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #f0f,
+    0 0 20px #0ff;
+  animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.9; }
+  50% { opacity: 1; text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff00ff; }
+  100% { opacity: 0.85; }
+}
+
+
+:root {
+    --line-color: linear-gradient(to top, #82ff86 20%, #144425, #104e1c);
+    --flower-center: radial-gradient(circle at center, #3d2003, #8b4513);
+    --leaf-color: radial-gradient(circle at center, #82ff86, #104e1c);
+    --petal-color: radial-gradient(circle at center, #ffbb00, #ff5e00);
+}
+
+body {
+    background-color: #000;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.sunflowers-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 3rem;
+    width: 100%;
+    max-width: 1000px;
+    place-items: center;
+
+    transform: scale(0.5);
+    transform-origin: center top;
+}
+
+.sunflower {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 2;
+}
+
+.flower_wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation:
+        moving-flower-sway 4s linear infinite,
+        sunflower-glow 2s ease-in-out infinite;
+}
+
+.flower_stem {
+    width: 8%;
+    height: 55%;
+    background-image: var(--line-color);
+    border-radius: 50% / 5%;
+    transform-origin: center bottom;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.flower_center {
+    position: absolute;
+    bottom: 55%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 20%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--flower-center);
+    z-index: 10;
+}
+
+.flower_petal {
+    position: absolute;
+    left: 50%;
+    bottom: 55%;
+    width: 10%;
+    height: 25%;
+    background: var(--petal-color);
+    border-radius: 50% / 50%;
+    transform-origin: center bottom;
+    transform: translateX(-50%) rotate(var(--rotation)) scale(0);
+    z-index: 5;
+    animation: draw-petal 0.8s forwards;
+}
+
+.flower_leaf {
+    position: absolute;
+    left: 50%;
+    bottom: 15%;
+    width: 15%;
+    height: 20%;
+    background: var(--leaf-color);
+    border-radius: 50% / 25%;
+    transform-origin: center bottom;
+    transform: translateX(-50%) rotate(var(--rotation));
+    z-index: 3;
+}
+
+.center_dot {
+    display: none;
+}
+
+/* Animaciones */
+@keyframes moving-flower-sway { 0%,100%{transform:rotate(5deg);}50%{transform:rotate(-5deg);} }
+@keyframes sunflower-glow { 0%{filter:drop-shadow(0 0 10px rgba(255,223,0,0.9));}50%{filter:drop-shadow(0 0 20px rgba(255,223,0,1));}100%{filter:drop-shadow(0 0 10px rgba(255,223,0,0.9));} }
+
+@keyframes draw-petal {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) rotate(var(--rotation)) scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) rotate(var(--rotation)) scale(1);
+    }
+}
+

@@ -1,0 +1,88 @@
+
+
+/* Fondo negro base */
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  overflow: hidden;
+  font-family: 'Great Vibes', cursive;
+  color: #fff;
+}
+
+/* Canvas de estrellas */
+canvas#starsCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Contenedor principal */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;   /* <-- ahora empieza desde arriba */
+  justify-content: center;
+  min-height: 100vh;
+  padding: 60px 40px 40px;   /* <-- agregamos padding arriba */
+  gap: 50px;
+}
+
+
+/* Imagen Bugs Bunny */
+.content img {
+  max-width: 220px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Texto con estilo neón eléctrico */
+.neon-text {
+  font-size: 2rem;
+  line-height: 1.5;
+  color: #fff;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #0ff,
+    0 0 80px #0ff;
+  animation: flicker 2s infinite alternate;
+  margin-bottom: 40px;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff; }
+  50% { opacity: 0.8; text-shadow: 0 0 2px #0ff, 0 0 6px #0ff, 0 0 10px #ff0; }
+  100% { opacity: 1; text-shadow: 0 0 10px #0ff, 0 0 20px #ff0, 0 0 40px #f0f; }
+}
+
+/* Botón futurista */
+.btn {
+  background: transparent;
+  border: 2px solid #0ff;
+  color: #0ff;
+  font-size: 1.3rem;
+  padding: 12px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 8px #0ff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.btn:hover {
+  background: #0ff;
+  color: black;
+  text-shadow: none;
+  box-shadow: 0 0 25px #0ff, 0 0 50px #0ff;
+}
